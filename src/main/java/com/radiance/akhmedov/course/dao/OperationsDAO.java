@@ -33,6 +33,12 @@ public class OperationsDAO {
         Balance balance = balanceRepo.findById(operation.getBalanceId()).orElseThrow(
                 () -> new IllegalArgumentException("No balance with such id"));
 
+
+        balance.setDebit(balance.getDebit() + operation.getDebit());
+        balance.setCredit(balance.getCredit() + operation.getCredit());
+        balance.setAmount(balance.getDebit() - balance.getCredit());
+        balanceRepo.save(balance);
+
         return operationRepo.save(new Operations(
                 article,
                 operation.getDebit(),
