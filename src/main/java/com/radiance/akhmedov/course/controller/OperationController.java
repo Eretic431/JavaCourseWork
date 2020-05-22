@@ -30,6 +30,17 @@ public class OperationController {
         }
     }
 
+    @GetMapping("all")
+    public ResponseEntity<List<Operations>> getOperations() {
+        final List<Operations> operations = operationsDAO.getAllOperations();
+        if (operations.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+
+        return ResponseEntity.ok(operations);
+    }
+
+
     @GetMapping("balance")
     public ResponseEntity<List<Operations>> getOperationsByBalanceId(@RequestParam Long id) {
         final List<Operations> operations = operationsDAO.getOperationsByBalanceId(id);

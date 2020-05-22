@@ -49,4 +49,7 @@ public class OperationsDAO {
     }
 
 
+    public List<Operations> getAllOperations() {
+        return operationRepo.findAll();
+    }
 }
