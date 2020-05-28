@@ -15,6 +15,10 @@ public class ArticlesDAO {
     }
 
     public Articles insert(final Articles article) {
+        final Articles articleFoundByName = findByName(article.getName());
+        if (articleFoundByName != null) {
+            return articleFoundByName;
+        }
         return articleRepo.save(article);
     }
 
