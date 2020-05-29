@@ -1,32 +1,32 @@
 package com.radiance.akhmedov.course.dao;
 
-import com.radiance.akhmedov.course.model.Articles;
+import com.radiance.akhmedov.course.model.Article;
 import com.radiance.akhmedov.course.repo.ArticleRepo;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 @Component
-public class ArticlesDAO {
+public class ArticleDAO {
     private final ArticleRepo articleRepo;
 
-    public ArticlesDAO(ArticleRepo articleRepo) {
+    public ArticleDAO(ArticleRepo articleRepo) {
         this.articleRepo = articleRepo;
     }
 
-    public Articles insert(final Articles article) {
-        final Articles articleFoundByName = findByName(article.getName());
+    public Article insert(final Article article) {
+        final Article articleFoundByName = findByName(article.getName());
         if (articleFoundByName != null) {
             return articleFoundByName;
         }
         return articleRepo.save(article);
     }
 
-    public List<Articles> getAllArticles() {
+    public List<Article> getAllArticles() {
         return articleRepo.findAll();
     }
 
-    public Articles findByName(final String name) {
+    public Article findByName(final String name) {
         return articleRepo.findByName(name);
     }
 }

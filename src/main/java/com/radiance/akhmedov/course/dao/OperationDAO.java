@@ -1,8 +1,8 @@
 package com.radiance.akhmedov.course.dao;
 
-import com.radiance.akhmedov.course.model.Articles;
+import com.radiance.akhmedov.course.model.Article;
 import com.radiance.akhmedov.course.model.Balance;
-import com.radiance.akhmedov.course.model.Operations;
+import com.radiance.akhmedov.course.model.Operation;
 import com.radiance.akhmedov.course.model.dto.OperationDTO;
 import com.radiance.akhmedov.course.repo.BalanceRepo;
 import com.radiance.akhmedov.course.repo.OperationRepo;
@@ -11,24 +11,24 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Component
-public class OperationsDAO {
+public class OperationDAO {
     private final OperationRepo operationRepo;
-    private final ArticlesDAO articleDAO;
+    private final ArticleDAO articleDAO;
     private final BalanceRepo balanceRepo;
 
-    public OperationsDAO(
+    public OperationDAO(
             final OperationRepo operationRepo,
-            final ArticlesDAO articleDAO,
+            final ArticleDAO articleDAO,
             final BalanceRepo balanceRepo) {
         this.operationRepo = operationRepo;
         this.articleDAO = articleDAO;
         this.balanceRepo = balanceRepo;
     }
 
-    public Operations insert(final OperationDTO operation) {
-        Articles article = articleDAO.findByName(operation.getName());
+    public Operation insert(final OperationDTO operation) {
+        Article article = articleDAO.findByName(operation.getName());
         if (article == null) {
-            article = articleDAO.insert(new Articles(operation.getName()));
+            article = articleDAO.insert(new Article(operation.getName()));
         }
         Balance balance = balanceRepo.findById(operation.getBalanceId()).orElseThrow(
                 () -> new IllegalArgumentException("No balance with such id"));
@@ -38,22 +38,22 @@ public class OperationsDAO {
         balance.setAmount(balance.getDebit() - balance.getCredit());
         balanceRepo.save(balance);
 
-        return operationRepo.save(new Operations(
+        return operationRepo.save(new Operation(
                 article,
                 operation.getDebit(),
                 operation.getCredit(),
                 balance));
     }
 
-    public List<Operations> getOperationsByBalanceId(final Long balanceId) {
+    public List<Operation> getOperationsByBalanceId(final Long balanceId) {
         return operationRepo.findAllByBalanceId(balanceId);
     }
 
-    public List<Operations> getOperationsByArticleId(final Long articleId) {
+    public List<Operation> getOperationsByArticleId(final Long articleId) {
         return operationRepo.findAllByArticleId(articleId);
     }
 
-    public List<Operations> getAllOperations() {
+    public List<Operation> getAllOperations() {
         return operationRepo.findAll();
     }
 }

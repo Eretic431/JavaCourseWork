@@ -1,7 +1,7 @@
 package com.radiance.akhmedov.course.controller;
 
-import com.radiance.akhmedov.course.dao.ArticlesDAO;
-import com.radiance.akhmedov.course.model.Articles;
+import com.radiance.akhmedov.course.dao.ArticleDAO;
+import com.radiance.akhmedov.course.model.Article;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,16 +11,16 @@ import java.util.List;
 @RequestMapping("articles")
 @RestController
 public class ArticleController {
-    private final ArticlesDAO articlesDAO;
+    private final ArticleDAO articleDAO;
 
     @Autowired
-    public ArticleController(ArticlesDAO articlesDAO) {
-        this.articlesDAO = articlesDAO;
+    public ArticleController(ArticleDAO articleDAO) {
+        this.articleDAO = articleDAO;
     }
 
     @GetMapping
-    public ResponseEntity<List<Articles>> getArticles() {
-        final List<Articles> articles = articlesDAO.getAllArticles();
+    public ResponseEntity<List<Article>> getArticles() {
+        final List<Article> articles = articleDAO.getAllArticles();
         if (articles.isEmpty()) {
             return ResponseEntity.noContent().build();
         }
@@ -29,7 +29,7 @@ public class ArticleController {
     }
 
     @PostMapping
-    public ResponseEntity<Articles> insert(@RequestBody final Articles articles) {
-        return ResponseEntity.ok(articlesDAO.insert(articles));
+    public ResponseEntity<Article> insert(@RequestBody final Article article) {
+        return ResponseEntity.ok(articleDAO.insert(article));
     }
 }

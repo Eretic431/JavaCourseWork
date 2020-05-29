@@ -2,15 +2,20 @@ package com.radiance.akhmedov.course.model;
 
 import org.springframework.lang.NonNull;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "articles")
-public class Articles {
-    public Articles() {
+public class Article {
+    public Article() {
     }
 
-    public Articles(@NonNull String name) {
+    public Article(@NonNull String name) {
         this.name = name;
     }
 

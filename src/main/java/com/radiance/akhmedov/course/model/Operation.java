@@ -1,15 +1,24 @@
 package com.radiance.akhmedov.course.model;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import java.sql.Timestamp;
 
 @Entity
 @Table(name = "operations")
-public class Operations {
-    public Operations() {
+public class Operation {
+    public Operation() {
     }
 
-    public Operations(Articles article, int debit, int credit, Balance balance) {
+    public Operation(Article article, int debit, int credit, Balance balance) {
         this.article = article;
         this.debit = debit;
         this.credit = credit;
@@ -24,7 +33,7 @@ public class Operations {
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(columnDefinition = "article_id")
-    private Articles article;
+    private Article article;
 
     @Column(name = "debit")
     private int debit;
@@ -47,11 +56,11 @@ public class Operations {
         this.id = id;
     }
 
-    public Articles getArticle() {
+    public Article getArticle() {
         return article;
     }
 
-    public void setArticle(Articles article) {
+    public void setArticle(Article article) {
         this.article = article;
     }
 
