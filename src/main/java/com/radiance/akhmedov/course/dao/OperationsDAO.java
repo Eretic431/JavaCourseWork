@@ -33,7 +33,6 @@ public class OperationsDAO {
         Balance balance = balanceRepo.findById(operation.getBalanceId()).orElseThrow(
                 () -> new IllegalArgumentException("No balance with such id"));
 
-
         balance.setDebit(balance.getDebit() + operation.getDebit());
         balance.setCredit(balance.getCredit() + operation.getCredit());
         balance.setAmount(balance.getDebit() - balance.getCredit());
@@ -53,7 +52,6 @@ public class OperationsDAO {
     public List<Operations> getOperationsByArticleId(final Long articleId) {
         return operationRepo.findAllByArticleId(articleId);
     }
-
 
     public List<Operations> getAllOperations() {
         return operationRepo.findAll();

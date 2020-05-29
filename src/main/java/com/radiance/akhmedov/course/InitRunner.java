@@ -17,7 +17,7 @@ public class InitRunner implements CommandLineRunner {
     }
 
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String... args) {
         Arrays.stream(new String[]{"Школа", "Быт", "Комуналка", "Развлечения", "Машина"})
                 .forEach(article -> {
                     articlesDAO.insert(new Articles(article));
